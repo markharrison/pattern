@@ -80,16 +80,16 @@
         
         // Handle image loading errors
         img.onerror = function() {
-            console.error('Failed to load image: bgrocksL.png');
+            console.error('Failed to load image: bgrocksL.svg');
             // Draw error message on canvas
             ctx.fillStyle = '#ff0000';
             ctx.font = '24px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText('Error: Could not load bgrocksL.png', canvasWidth / 2, canvasHeight / 2);
+            ctx.fillText('Error: Could not load bgrocksL.svg', canvasWidth / 2, canvasHeight / 2);
         };
         
         // Load the image
-        img.src = 'bgrocksL.png';
+        img.src = 'bgrocksL.svg';
     </script>
 </body>
 </html>
