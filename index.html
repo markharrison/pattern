@@ -41,29 +41,41 @@
         const canvasWidth = 1280;
         const canvasHeight = 720;
         
-        // Pattern tile size
-        const tileSize = 120; // Size of each pattern tile
+        // Target width for each image (half of canvas width)
+        const targetWidth = canvasWidth / 2; // 640px
         
         // Load the image
         const img = new Image();
         img.onload = function() {
+            // Calculate scaling factor to fit width while maintaining aspect ratio
+            const scale = targetWidth / img.width;
+            const scaledWidth = img.width * scale;
+            const scaledHeight = img.height * scale;
+            
+            // Calculate positions for bottom alignment
+            const leftX = 0;
+            const rightX = canvasWidth / 2; // Start at middle of canvas
+            const bottomY = canvasHeight - scaledHeight; // Align to bottom
+            
             // Clear canvas
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
             
-            // Calculate how many tiles fit in each direction
-            const tilesX = Math.ceil(canvasWidth / tileSize);
-            const tilesY = Math.ceil(canvasHeight / tileSize);
+            // Draw the left image (normal orientation)
+            ctx.drawImage(img, leftX, bottomY, scaledWidth, scaledHeight);
             
-            // Draw tiled pattern
-            for (let row = 0; row < tilesY; row++) {
-                for (let col = 0; col < tilesX; col++) {
-                    const x = col * tileSize;
-                    const y = row * tileSize;
-                    
-                    // Draw the pattern tile
-                    ctx.drawImage(img, x, y, tileSize, tileSize);
-                }
-            }
+            // Draw the right image (horizontally flipped)
+            ctx.save(); // Save current state
+            
+            // Move to the center point of the right image area
+            ctx.translate(rightX + scaledWidth / 2, bottomY + scaledHeight / 2);
+            
+            // Flip horizontally
+            ctx.scale(-1, 1);
+            
+            // Draw the image centered at origin (which is now the center of the right area)
+            ctx.drawImage(img, -scaledWidth / 2, -scaledHeight / 2, scaledWidth, scaledHeight);
+            
+            ctx.restore(); // Restore previous state
         };
         
         // Handle image loading errors
