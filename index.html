@@ -4,11 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pattern Display</title>
+    <style>
+      #patternCanvas {
+        border: 6px solid white;
+        box-sizing: content-box;
+        background: transparent;
+      }
+    </style>
   </head>
-  <body>
-    <div class="container">
-      <h1>Pattern Display</h1>
+  <body bgcolor="yellow">
+    <div style="text-align: center">
+      <h1 style="color: black">Pattern Display</h1>
       <canvas id="patternCanvas" width="1280" height="720"></canvas>
+      <div style="margin-top: 10px">
+        <button id="downloadBtn">Download PNG</button>
+      </div>
       <script src="pattern.js"></script>
     </div>
   </body>
